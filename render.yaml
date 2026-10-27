@@ -1,0 +1,34 @@
+service_id: applebay-render-backend
+type: web
+runtime: docker
+dockerfile: Dockerfile
+
+# ---- ENVIRONMENT VARIABLES -------------------------------------------------
+env:
+  - key: JWT_SECRET
+    value: "change-me-to-a-32-plus-byte-random-secret"
+  - key: JWT_TTL_SECONDS
+    value: "28800"
+  - key: ADMIN_EMAIL
+    value: "admin@applebay.local"
+  - key: ADMIN_PASSWORD
+    value: "ChangeMe!2026Strong"
+  - key: SPRING_DATASOURCE_URL
+    value: "postgresql://neondb_owner:«redacted 16 chars»@ep-steep-night-b5kjzmed-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+  - key: SPRING_DATASOURCE_USERNAME
+    value: "neondb_owner"
+  - key: SPRING_DATASOURCE_PASSWORD
+    value: "npg_l1M3XQBRfAYV"
+  - key: FRONTEND_URL
+    value: "https://taupe-malasada-f46b08.netlify.app"
+  - key: TRUST_PROXY
+    value: "false"
+  - key: JWT_ISSUER
+    value: "applebay-sms"
+  - key: JWT_AUDIENCE
+    value: "applebay-sms-ui"
+
+# ---- BUILD / RUN -----------------------------------------------------------
+buildCommand: Dockerfile
+startCommand: sh -c "java $JAVA_OPTS -jar app.jar"
+port: 8080
